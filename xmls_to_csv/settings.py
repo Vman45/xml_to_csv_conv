@@ -80,10 +80,14 @@ WSGI_APPLICATION = 'xmls_to_csv.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
     }
 }
+
+DATABASES['default'] = dj_database_url.config(default='postgres://xskdbsfnpecfby:08620bbfb5d842e0d86dde04618b2f359d78cd917b01da41dc2f88007d8469b4@ec2-54-161-208-31.compute-1.amazonaws.com:5432/dbfa4kmv94sppr')
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
