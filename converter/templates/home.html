@@ -2,7 +2,23 @@
 
 {% block content %}
 
-	<h3>HELLO PANDA</h3>
-
+	<div class="container">
+		<div class="row">
+			{% for request in requests %}
+			<div class="col-sm">
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+				    <h5 class="card-title">{{ request.series }}</h5>
+					<hr/>
+					<p class="card-text">+ {{ request.studio }}</p>
+					<p class="card-text">+ {{ request.date_requested }}</p>
+					<a href="#" class="btn btn-primary btn-sm">{{ request.directory }}</a>
+				  </div>
+				</div>
+				<br/>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
 
