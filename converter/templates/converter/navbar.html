@@ -1,0 +1,29 @@
+{% load static %}
+
+<!-- Image and text -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'home' %}">
+    <img src="{% static 'images/logo3.png' %}" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-light" href="{% url 'home' %}">XML CONVERTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light" href="#">RESOURCES</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">RESOURCES</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">iNDAB</a>
+          <a class="dropdown-item" href="#">Rightsline</a>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- <h1 class="nav-item d-inline-block align-top text-light">XML CONVERTER</h1>
+  <a class="nav-item nav-link" href="#">about</a> -->
+</nav>

@@ -1,0 +1,147 @@
+{% extends 'converter/main.html' %}
+
+{% block content %}
+
+<br/>
+<br/>  
+<br>
+
+<div class="row">
+	<div class="col"> 
+		<div class="col-md">
+			<div class="card mb-3">
+			  	<div class="card-header text-center" id="input">
+			  		<h5 class="card-title text-white">Input Details</h5>
+			  	</div>
+			  	<div class="card-body">
+					<form class="form-group my-2 my-lg-0"  method="POST">
+						{% csrf_token %}
+
+						<label>SELECT STUDIO:</label>
+		
+						<select name="studio" id="studio">
+							<option>---</option>
+							<option value="disney">Disney</option>
+							<option value="discovery">Discovery</option>
+							<option value="a&e">A&E</option>
+						</select><br/>
+						<br/>
+		
+						<!-- <p class="text-info"><small>Copy the path to the directory of XMLs and paste below...</small><br/>
+						<small><em>- e.g., 'C:\Box\EST & Streampix\Metadata By Month\2020\7. July\TV\Disney\30 For 30'</em></small></p> -->
+
+						<blockquote class="blockquote">
+							<p class="text-info"><small>Copy the path to the directory of XMLs and paste below...</small><br/></p>
+							<footer class="blockquote-footer text-info"><small><em>e.g., 'C:\Box\EST & Streampix\Metadata By Month\2020\7. July\TV\Disney\30 For 30'</em></small></footer>
+						
+						</blockquote>
+									
+						<input 
+							name="directory" 
+							class="form-control mr-sm-2" 
+							type="search" 
+							placeholder="Enter directory path..." 
+							aria-label="Search"
+						/>
+						<br/>
+						<!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<label class="btn btn-secondary">
+							  <input type="radio" name="export" id="option1" autocomplete="off"> EXPORT CSV
+							</label>
+							<br/>
+							<label class="btn btn-secondary">
+							  <input type="radio" name="preview" id="option2" autocomplete="off"> PREVIEW & SAVE IN FOLDER
+							</label>
+						</div> -->
+						
+						
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" id="customRadioInline2" name="export" class="custom-control-input" value="write" checked>
+							<label class="custom-control-label" for="customRadioInline2">SAVE IN GIVEN FOLDER & VIEW IN BROWSER</label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" id="customRadioInline1" name="export" class="custom-control-input" value="export">
+							<label class="custom-control-label" for="customRadioInline1">EXPORT CSV</label>
+						  </div>
+
+						<br/><br/>
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+							GENERATE
+						</button>
+						<div class="row justify-content-center">
+							{% for error in messages %}
+								<div class="mt-4 d-flex col-sm-6">
+									<div class="card bg-dark">
+										<div class="card-body">
+											<h6 class="text-warning card-text">{{ error }}</h6>
+										</div>
+									</div>
+									<!-- <br/> -->
+								</div>
+							{% endfor %}
+						</div>
+					</form>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	{% include 'converter/output-details.html' %}
+
+</div>
+	<br/>
+	<div class="table-responsive">		
+		{% if file_list %}
+			<table class="table table-sm table-striped table-bordered table-hover table-dark">
+				<thead>
+					<tr class="text-warning">
+						{% for column in columns %}
+							<th scope="col">{{ column }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in rows %}
+					<tr>
+						{% for r in row %}
+							<td scope="row">{{ r }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+		
+	</div>
+</div>
+<br/><hr/>
+
+<div class="container-fluid text-info">
+	<br/>
+	<p>***OPTIONAL / FUTURE FEATURES***</p>
+	<form method="POST">  	
+		<!-- READS FILES FROM A DIRECTORY -->
+		{% csrf_token %}
+		<div class="container-fluid">
+			<p>+ CHOOSE A FOLDER WHICH CONTAINS XMLs TO BE CONVERTED TO CSV</p>
+			<input 
+				id="filepicker" 
+				type="file" 
+				name="fileList" 
+				webkitdirectory 
+				multiple 
+			/>
+			<ul id="listing"></ul>
+		</div>
+	
+		<div class="container-fluid">
+			<button class="btn btn-sm btn-primary">GENERATE CSV</button>
+		</div>
+		<hr/>
+	</form>
+	<button>CHOOSE HEADERS/ COLUMNS</button>
+	<button>PREVIEW</button>
+	<br/><br/>
+</div>
+
+{% endblock %}

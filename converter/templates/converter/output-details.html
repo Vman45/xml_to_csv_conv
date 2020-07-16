@@ -1,0 +1,33 @@
+<div class="col">
+    <div class="col-md">
+        <div class="card mb-3">
+              <div class="card-header text-center" id="output">
+                  <h5 class="card-title text-white">Output Details</h5>
+              </div>
+              <div class="card-body">
+                {% if directory and studio %}
+                    <form class="form-group my-2 my-lg-0" method="POST">
+                        {% csrf_token %}
+                        <input 
+                            type="text"
+                            name="filename"
+                            class="form-control"
+                            placeholder="Enter a file name or a default name will be used..."
+                        />
+                        <br/>
+                        <!-- <p class="text-success"><span class="text-dark">Given Path:</span> {{ path }}</p> -->
+                        <p class="text-info"><span class="text-dark">Studio:</span> {{ studio }}</p>
+                        <p class="text-warning"><span class="text-dark">Output Location:</span> {{ output_path }}</p>
+                        <p class="text-danger"><span class="text-dark">No. of Files:</span> {{ file_list|length }}</p>
+                        <br/>
+                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+                            <span>EXPORT CSV <em>(disabled)</em></span>
+                        </button>
+                        <!-- <br/> -->
+                        <br/>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
