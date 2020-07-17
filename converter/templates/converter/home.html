@@ -35,7 +35,8 @@
 							<footer class="blockquote-footer text-info"><small><em>e.g., 'C:\Box\EST & Streampix\Metadata By Month\2020\7. July\TV\Disney\30 For 30'</em></small></footer>
 						
 						</blockquote>
-									
+
+						<!-- TESTING FILE UPLOAD			 -->
 						<input 
 							name="directory" 
 							class="form-control mr-sm-2" 
@@ -43,6 +44,19 @@
 							placeholder="Enter directory path..." 
 							aria-label="Search"
 						/>
+						<br/>
+
+						<div class="container-fluid">
+							<p>+ CHOOSE A FOLDER WHICH CONTAINS XMLs TO BE CONVERTED TO CSV</p>
+							<input 
+								id="filepicker" 
+								type="file" 
+								name="xml_list" 
+								webkitdirectory 
+								multiple 
+							/>
+							<ul id="listing"></ul>
+						</div>
 						<br/>
 						<!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
 							<label class="btn btn-secondary">

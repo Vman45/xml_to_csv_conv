@@ -11,7 +11,25 @@ import csv
 import os
 
 
-def converter(request):
+def upload(request):
+	if request.method == 'POST':
+		# uploaded_file = request.FILES['fileList']
+		# print('\tREQUEST FILES:', request.FILES)
+		# print('\tUPLOADED FILEEEE:', uploaded_file)
+		# print('\tUPLOADED FILE:', uploaded_file.name)
+		# print('t\UPLOADED FILE:', uploaded_file)
+
+		for file in request.FILES:
+			print("----------")
+			print("\tFILE: ", file)
+	return render(request, 'converter/upload.html')
+
+
+
+
+
+
+def home(request):
 	if request.method == 'GET':
 		return render(request, 'converter/home.html')
 	else:
@@ -25,20 +43,27 @@ def converter(request):
 		studio = ''
 		output_path = ''
 
+		# TESTING:
+		xml_list = []
+
 		error_message = []
 
 		try:
 			print('\tPOST REQUEST INFO:', request.POST)
 			directory = request.POST['directory']
 			studio = request.POST['studio']
-			# if not request.
+
+			xml_list = request.POST['xml_list']
+			print('\txml_list TYPE--->', type(xml_list))
+			# for filename in os.scandir(request.POST['xml_list']):
+			# 	if filename.is_file() and filename.name.endswith('.xml'):
+			# 		print('\tXML --> ', filename)
+			
+
+			filename = '_compiledXMLs'
 
 			list_data = process_xmls.process_directory(directory, studio)
 
-			# if request.POST['filename']: 
-			# 	input_dir = directory
-			# 	input_stud = studio
-			# 	print("EXPORT", filename)
 
 			file_list = []
 			studio_error = ''
@@ -65,25 +90,26 @@ def converter(request):
 				for row in row_data:
 					writer.writerow(row)
 
-				response['Content-Disposition'] = 'attachment; filename="TESTEXPORT.csv"'
+				response['Content-Disposition'] = f'attachment; filename="{filename}.csv"'
 				return response
 
 		
-			output_path = "C:\\Users\\nhunter\\Desktop\\code\\sandbox\\_TEST2.csv"
+			output_path = f"C:\\Users\\nhunter\\Desktop\\code\\sandbox\\{filename}.csv"
 			# output_path = directory + '\\' + "_TEST2.csv"
 
 			write_csv.write_to_csv(filename, list_data)
 		except:	
 			if directory == '':
 				error_message.append('PLEASE PROVIDE A DIRECTORY')
-				print('\tdir:', error_message)
+				# print('\tdir:', error_message)
 			if studio == '---':
 				studio = ''
 				error_message.append('PLEASE PROVIDE A STUDIO')
-				print('\tstud:', error_message)
+				# print('\tstud:', error_message)
 		return render(request, 'converter/home.html', {
 			'directory': directory,
 			'studio': studio.upper(),
+			'filename': filename,
 			'messages': error_message,
 			'file_list': list_data,
 			'columns': columns,
@@ -92,11 +118,12 @@ def converter(request):
 			}
 		)
 
-def home(request): 
 
-	all_requests = Request.objects.all
-
-	return render(request, 'home.html', {'requests': all_requests})
+def about (request):
+	return render(request, 'converter/about.html', {})
+# def home(request): 
+# 	all_requests = Request.objects.all
+# 	return render(request, 'home.html', {'requests': all_requests})
 
 
 def add_request(request):

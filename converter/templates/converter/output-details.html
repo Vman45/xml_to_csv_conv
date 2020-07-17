@@ -8,14 +8,17 @@
                 {% if directory and studio %}
                     <form class="form-group my-2 my-lg-0" method="POST">
                         {% csrf_token %}
-                        <input 
+
+<!--                         <input 
                             type="text"
                             name="filename"
                             class="form-control"
                             placeholder="Enter a file name or a default name will be used..."
-                        />
-                        <br/>
+                        /> -->
+
+                        <!-- <br/> -->
                         <!-- <p class="text-success"><span class="text-dark">Given Path:</span> {{ path }}</p> -->
+                        <p class="purple-txt"><span class="text-dark">Filename:</span> {{ filename }}</p>
                         <p class="text-info"><span class="text-dark">Studio:</span> {{ studio }}</p>
                         <p class="text-warning"><span class="text-dark">Output Location:</span> {{ output_path }}</p>
                         <p class="text-danger"><span class="text-dark">No. of Files:</span> {{ file_list|length }}</p>
