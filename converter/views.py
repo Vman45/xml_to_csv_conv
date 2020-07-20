@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from django.conf import settings
 
 from converter.helper_methods import process_xmls, create_dictionarys, write_csv, export_csv
 from .models import Request
@@ -14,20 +15,15 @@ import os
 def upload(request):
 	if request.method == 'POST':
 		# uploaded_file = request.FILES['fileList']
-		# print('\tREQUEST FILES:', request.FILES)
+		print('\tREQUEST FILES:', request.FILES)
 		# print('\tUPLOADED FILEEEE:', uploaded_file)
 		# print('\tUPLOADED FILE:', uploaded_file.name)
 		# print('t\UPLOADED FILE:', uploaded_file)
 
-		for file in request.FILES:
-			print("----------")
-			print("\tFILE: ", file)
-	return render(request, 'converter/upload.html')
-
-
-
-
-
+		# for file in request.FILES:
+		# 	print("----------")
+		# 	print("\tFILE: ", file)
+	return render(request, 'converter/upload.html', {})
 
 def home(request):
 	if request.method == 'GET':
@@ -44,17 +40,22 @@ def home(request):
 		output_path = ''
 
 		# TESTING:
-		xml_list = []
+		xml_list = [] 
 
 		error_message = []
 
 		try:
 			print('\tPOST REQUEST INFO:', request.POST)
+			# directory = request.POST['directory']
+
 			directory = request.POST['directory']
+			root = f'{settings.MEDIA_ROOT}\\{directory}'
+			print('\t---> ROOT', root)
+
 			studio = request.POST['studio']
 
 			xml_list = request.POST['xml_list']
-			print('\txml_list TYPE--->', type(xml_list))
+			# print('\txml_list TYPE--->', type(xml_list))
 			# for filename in os.scandir(request.POST['xml_list']):
 			# 	if filename.is_file() and filename.name.endswith('.xml'):
 			# 		print('\tXML --> ', filename)
@@ -62,7 +63,7 @@ def home(request):
 
 			filename = '_compiledXMLs'
 
-			list_data = process_xmls.process_directory(directory, studio)
+			list_data = process_xmls.process_directory(root, studio)
 
 
 			file_list = []

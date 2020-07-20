@@ -3,73 +3,17 @@
 {% load static %}
 
 {% block content %}
+<h3>UPLOAD PAGE...</h3>
     <div class="container-fluid">
 
-        <h3>UPLOAD PAGE...</h3>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <input 
-                name="filename" 
-                class="form-control mr-sm-2" 
-                type="text" 
-                placeholder="Enter a new filename..." 
-                aria-label="Filename"
-            />
-            <br/>
-
-            <br/>
-
-            <div class="container-fluid">
-                <input type="file" name="document" multiple>
-            </div>
-            
-            <br/>
-                
-            <div class="container-fluid">
-                <div class="filePicker">
-                    <input 
-                        id="filepicker" 
-                        type="file" 
-                        name="xml_list" 
-                        webkitdirectory 
-                        multiple 
-                    />
-                </div>
-            </div>
-            <br/>
-
-            <div class="picker"><input type="file" id="picker" name="fileList" webkitdirectory multiple></div>
-
-
-            <button type="submit">UPLOAD FILE</button>
-
+            <input type="file" name="document">
+    
+            <button type="submit" class="btn btn-secondary">UPLOAD FILE</button>
         </form>
-
-        <br/>
-        <h4>NUDDA FORM:</h4>
-
-        <form method='POST' enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <input type="file" id="file_input" name="file_field" webkitdirectory directory/>
-            <input type="text" id="directories" name="directories" hidden />
-            <input type="submit"/>
-        </form>
-        <script>
-         files = document.querySelector("#file_input").files;
-         document.querySelector("#file_input").addEventListener("change", function() {
-            files = document.querySelector("#file_input").files;
-            var directories = {}
-            for (var file of files) {
-              file.webkitRelativePath
-              directories[file.name] = file.webkitRelativePath
-            }
-            directories = JSON.stringify(directories);
-            document.querySelector("#directories").value = directories
-         });
-        </script>
 
     </div>
 {% endblock %}

@@ -133,4 +133,12 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Relative path used here?
+MEDIA_ROOT = r'C:\\Box\\EST & Streampix\\Metadata By Month\\2020\\7. July\\TV\\Discovery'
+# print('\nMEDIA ROOT', MEDIA_ROOT, '\n\t^^^^^^^^^^^')
+
+XML_ROOT = r'C:\\Box\\EST & Streampix\\Metadata By Month\\2020\\7. July\\TV\\Discovery'
+
+# MEDIA_URL = '/media/'
+
 django_heroku.settings(locals())
